@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <title>EasyMart - Sistema de Supermercado</title>
+</head>
+<body>
+    <h1>Bem-vindo ao EasyMart</h1>
+    <h2>Lista de Produtos</h2>
+    <table border="1">
+        <thead>
+            <tr>
+                <th>Nome</th>
+                <th>Preço</th>
+                <th>Quantidade em Estoque</th>
+                <th>Ação</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for produto in produtos %}
+            <tr>
+                <td>{{ produto.nome }}</td>
+                <td>R$ {{ produto.preco }}</td>
+                <td>{{ produto.quantidade }}</td>
+                <td>
+                    {% if produto.quantidade > 0 %}
+                    <a href="{% url 'vender' produto.id %}">Vender 1 unidade</a>
+                    {% else %}
+                    Estoque esgotado
+                    {% endif %}
+                </td>
+            </tr>
+            {% empty %}
+            <tr>
+                <td colspan="4">Nenhum produto cadastrado.</td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+    <br>
+    <a href="/admin/">Acessar Painel Admin</a>
+</body>
+</html>
