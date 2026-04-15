@@ -12,7 +12,7 @@ EasyMart é um sistema Django para gerenciar produtos e fornecedores. O foco atu
 ## Tecnologias
 - **Framework**: Django
 - **Banco de Dados**: SQLite
-- **Front-end**: HTML com CSS separado em arquivos estáticos
+- **Front-end**: HTML com CSS e JavaScript separados em arquivos estáticos
 
 ## Instalação e Execução
 1. Certifique-se de ter Python instalado.

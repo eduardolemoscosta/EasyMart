@@ -40,7 +40,7 @@
                 </td>
                 <td>
                     {% if produto.fornecedor and produto.fornecedor.email %}
-                    <a href="{% url 'pedir_fornecedor' produto.id %}">Pedir ao Fornecedor</a>
+                    <a class="confirm-pedido" data-produto-name="{{ produto.nome }}" href="{% url 'pedir_fornecedor' produto.id %}">Pedir ao Fornecedor</a>
                     {% else %}
                     Sem contato
                     {% endif %}
@@ -53,5 +53,6 @@
             {% endfor %}
         </tbody>
     </table>
+    <script src="{% static 'js/main.js' %}"></script>
 </body>
 </html>
