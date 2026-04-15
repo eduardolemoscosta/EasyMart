@@ -5,6 +5,6 @@ from . import views
 urlpatterns = [
     # Página inicial: lista produtos
     path('', views.index, name='index'),
-    # URL para vender um produto: /vender/<id>/
-    path('vender/<int:produto_id>/', views.vender, name='vender'),
+    # URL para pedir ao fornecedor: /pedir/<id>/
+    path('pedir-fornecedor/<int:produto_id>/', views.pedir_fornecedor, name='pedir_fornecedor'),
 ]

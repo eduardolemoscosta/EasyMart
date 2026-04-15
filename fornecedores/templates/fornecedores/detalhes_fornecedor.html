@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>EasyMart - {{ fornecedor.nome }}</title>
+    {% load static %}
+    <link rel="stylesheet" href="{% static 'css/style.css' %}">
+    <link rel="stylesheet" href="{% static 'css/tabela.css' %}">
+    <link rel="stylesheet" href="{% static 'css/detalhes.css' %}">
+</head>
+<body>
+    <div class="nav">
+        <a href="/fornecedores/">Voltar para Fornecedores</a> | <a href="/">Voltar para Produtos</a> | <a href="/admin/">Painel Admin</a>
+    </div>
+    
+    <h1>{{ fornecedor.nome }}</h1>
+    
+    <div class="info">
+        <p><strong>Email:</strong> {{ fornecedor.email }}</p>
+        <p><strong>Telefone:</strong> {{ fornecedor.telefone }}</p>
+        <p><strong>Endereço:</strong> {{ fornecedor.endereco }}</p>
+        <p><strong>Data de Cadastro:</strong> {{ fornecedor.data_cadastro|date:"d/m/Y H:i" }}</p>
+    </div>
+    
+    <h2>Produtos deste Fornecedor</h2>
+    <table>
+        <thead>
+            <tr>
+                <th>Nome do Produto</th>
+                <th>Preço</th>
+                <th>Quantidade</th>
+                <th>Último Pedido</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for produto in produtos %}
+            <tr>
+                <td>{{ produto.nome }}</td>
+                <td>R$ {{ produto.preco }}</td>
+                <td>{{ produto.quantidade }}</td>
+                <td>
+                    {% if produto.ultimo_pedido %}
+                        {{ produto.ultimo_pedido|date:"d/m/Y H:i" }}
+                    {% else %}
+                        Nenhum pedido realizado
+                    {% endif %}
+                </td>
+            </tr>
+            {% empty %}
+            <tr>
+                <td colspan="4">Nenhum produto deste fornecedor.</td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</body>
+</html>

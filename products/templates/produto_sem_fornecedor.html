@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Fornecedor não disponível</title>
+    {% load static %}
+    <link rel="stylesheet" href="{% static 'css/style.css' %}">
+</head>
+<body>
+    <div class="nav">
+        <a href="/">Voltar para Produtos</a> | <a href="/admin/">Painel Admin</a>
+    </div>
+    <h1>Fornecedor não disponível</h1>
+    <p>O produto "{{ produto.nome }}" ainda não possui fornecedor ou o fornecedor não tem e-mail cadastrado.</p>
+    <p>Cadastre o fornecedor no admin ou associe um fornecedor com e-mail ao produto.</p>
+</body>
+</html>

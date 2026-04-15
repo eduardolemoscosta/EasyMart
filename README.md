@@ -1,34 +1,54 @@
-# EasyMart - Sistema de Supermercado
+# EasyMart - Sistema de Gerenciamento de Produtos
 
 ## Descrição
-EasyMart é um sistema simples de gerenciamento de supermercado desenvolvido em Django. Esta é a versão 1.0, focada nas funcionalidades básicas: listagem de produtos, venda de unidades e cadastro via painel admin.
+EasyMart é um sistema Django para gerenciar produtos e fornecedores. O foco atual é o cadastro de produtos, vínculo de fornecedores e solicitação de reposto por e-mail.
 
 ## Funcionalidades
-- **Listagem de Produtos**: Página inicial mostrando uma tabela com nome, preço e quantidade em estoque de cada produto.
-- **Venda Simples**: Botão "Vender 1 unidade" para cada produto, que diminui o estoque em 1 e recarrega a página.
-- **Cadastro**: Adição de novos produtos via painel de administração do Django (/admin).
+- **Listagem de Produtos**: Página inicial com nome, preço, quantidade em estoque e fornecedor vinculado.
+- **Fornecedores**: Cadastro e gerenciamento de fornecedores via admin do Django.
+- **Pedido ao Fornecedor**: Botão que abre formulário para enviar e-mail ao fornecedor do produto.
+- **Admin Django**: Cadastro e edição de produtos e fornecedores pelo painel `/admin/`.
 
 ## Tecnologias
-- **Framework**: Django (Python)
-- **Banco de Dados**: SQLite (padrão do Django)
-- **Interface**: HTML simples, sem estilos avançados
+- **Framework**: Django
+- **Banco de Dados**: SQLite
+- **Front-end**: HTML com CSS separado em arquivos estáticos
 
 ## Instalação e Execução
 1. Certifique-se de ter Python instalado.
-2. Instale as dependências: `pip install django`
-3. Execute as migrações: `python manage.py migrate`
-4. Crie um superusuário: `python manage.py createsuperuser`
-5. Inicie o servidor: `python manage.py runserver`
-6. Acesse `http://127.0.0.1:8000/` para a listagem e `/admin/` para cadastro.
+2. Instale as dependências:
+   ```bash
+   pip install -r requirements.txt
+   ```
+3. Execute as migrações:
+   ```bash
+   python manage.py migrate
+   ```
+4. Crie um superusuário (opcional, caso queira outro usuário):
+   ```bash
+   python manage.py createsuperuser
+   ```
+5. Inicie o servidor:
+   ```bash
+   python manage.py runserver
+   ```
+6. Acesse:
+   - `http://127.0.0.1:8000/` para lista de produtos
+   - `http://127.0.0.1:8000/fornecedores/` para fornecedores
+   - `http://127.0.0.1:8000/admin/` para painel admin
+
+## Credenciais de Admin Padrão
+- **Usuário**: admin
+- **Senha**: admin
 
 ## Estrutura do Projeto
 - `easymart/`: Configurações do projeto Django
-- `products/`: App responsável pelos produtos (modelos, views, templates)
+- `products/`: App de produtos e formulário de pedido ao fornecedor
+- `fornecedores/`: App de fornecedores e vínculo com produtos
+- `static/`: CSS e arquivos estáticos
 - `manage.py`: Script de gerenciamento do Django
 
-## Próximos Passos
-- Adicionar validações e tratamento de erros
-- Implementar estilos CSS para melhor aparência
-- Expandir funcionalidades (carrinho de compras, categorias, etc.)
-- Refatorar para views baseadas em classe (CBV)
+## Observações
+- O envio de e-mail no ambiente de desenvolvimento usa o backend de console do Django.
+- Para produção, configure um servidor SMTP real no `easymart/settings.py`.
 

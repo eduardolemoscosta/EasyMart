@@ -1,0 +1,16 @@
+/* Estilos específicos para página de detalhes */
+.info {
+    background-color: #f0f0f0;
+    padding: 15px;
+    border-radius: 5px;
+    margin-bottom: 20px;
+    border-left: 4px solid #4CAF50;
+}
+
+.info p {
+    margin: 8px 0;
+}
+
+.info strong {
+    color: #333;
+}
