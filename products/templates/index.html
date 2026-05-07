@@ -15,6 +15,27 @@
     
     <h1>Bem-vindo ao EasyMart</h1>
     <h2>Lista de Produtos</h2>
+    <form method="get" style="margin-bottom: 16px;">
+        <input type="text" name="q" placeholder="Buscar produto ou fornecedor" value="{{ request.GET.q|default:'' }}" style="padding: 6px; width: 240px;">
+        <button type="submit" style="padding: 6px 12px;">Buscar</button>
+    </form>
+    {% if messages %}
+    <div>
+        {% for message in messages %}
+            <p style="color: {% if message.tags == 'error' %}red{% else %}green{% endif %};">{{ message }}</p>
+        {% endfor %}
+    </div>
+    {% endif %}
+    {% if alertas_estoque %}
+    <div style="margin-bottom: 16px;">
+        <strong>Produtos com estoque baixo:</strong>
+        <ul>
+            {% for produto_alerta in alertas_estoque %}
+                <li>{{ produto_alerta.nome }} - {{ produto_alerta.quantidade }} unidades</li>
+            {% endfor %}
+        </ul>
+    </div>
+    {% endif %}
     <table border="1">
         <thead>
             <tr>
@@ -23,6 +44,7 @@
                 <th>Quantidade em Estoque</th>
                 <th>Fornecedor</th>
                 <th>Ação</th>
+                <th>Venda</th>
             </tr>
         </thead>
         <tbody>
@@ -45,10 +67,21 @@
                     Sem contato
                     {% endif %}
                 </td>
+                <td>
+                    {% if produto.quantidade > 0 %}
+                    <form action="{% url 'finalizar_venda' produto.id %}" method="post" style="display:inline;">
+                        {% csrf_token %}
+                        <input type="number" name="quantidade" value="1" min="1" style="width: 50px;">
+                        <button type="submit" style="padding: 4px 8px;">Vender</button>
+                    </form>
+                    {% else %}
+                    Sem estoque
+                    {% endif %}
+                </td>
             </tr>
             {% empty %}
             <tr>
-                <td colspan="5">Nenhum produto cadastrado.</td>
+                <td colspan="6">Nenhum produto cadastrado.</td>
             </tr>
             {% endfor %}
         </tbody>

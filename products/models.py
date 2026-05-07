@@ -1,24 +1,33 @@
+from django.core.exceptions import ValidationError
+from django.core.validators import MinValueValidator
 from django.db import models
-from django.utils import timezone
 from fornecedores.models import Fornecedor
 
-# Modelo para representar um produto no supermercado
 class Produto(models.Model):
-    # Nome do produto, campo de texto obrigatório
     nome = models.CharField(max_length=100)
-    
-    # Preço do produto, campo decimal com 2 casas decimais
-    preco = models.DecimalField(max_digits=10, decimal_places=2)
-    
-    # Quantidade em estoque, campo inteiro
-    quantidade = models.IntegerField(default=0)
-    
-    # Fornecedor do produto
+    preco = models.DecimalField(max_digits=10, decimal_places=2, validators=[MinValueValidator(0)])
+    quantidade = models.IntegerField(default=0, validators=[MinValueValidator(0)])
     fornecedor = models.ForeignKey(Fornecedor, on_delete=models.SET_NULL, null=True, blank=True, related_name='produtos')
-    
-    # Data do último pedido ao fornecedor
     ultimo_pedido = models.DateTimeField(null=True, blank=True)
-    
+
+    def clean(self):
+        if self.preco < 0:
+            raise ValidationError({'preco': 'Preço não pode ser negativo.'})
+        if self.quantidade < 0:
+            raise ValidationError({'quantidade': 'Quantidade não pode ser negativa.'})
+
+    def save(self, *args, **kwargs):
+        self.full_clean()
+        super().save(*args, **kwargs)
+
+    def baixa_estoque(self, quantidade_vendida):
+        if quantidade_vendida <= 0:
+            raise ValueError('Quantidade de venda deve ser maior que zero.')
+        if self.quantidade < quantidade_vendida:
+            raise ValueError('Estoque insuficiente para finalizar a venda.')
+        self.quantidade -= quantidade_vendida
+        self.save(update_fields=['quantidade'])
+        return self.quantidade
+
     def __str__(self):
-        # Método para representar o produto como string (usado no admin)
         return self.nome

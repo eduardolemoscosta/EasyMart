@@ -16,21 +16,22 @@ EasyMart é um sistema Django para gerenciar produtos e fornecedores. O foco atu
 
 ## Instalação e Execução
 1. Certifique-se de ter Python instalado.
-2. Instale as dependências:
+2. Crie e ative um ambiente virtual:
+   ```bash
+   py -m venv venv
+   .\venv\Scripts\activate
+   ```
+3. Instale as dependências:
    ```bash
    pip install -r requirements.txt
    ```
-3. Execute as migrações:
+4. Execute as migrações:
    ```bash
-   python manage.py migrate
-   ```
-4. Crie um superusuário (opcional, caso queira outro usuário):
-   ```bash
-   python manage.py createsuperuser
+   .\venv\Scripts\python.exe manage.py migrate
    ```
 5. Inicie o servidor:
    ```bash
-   python manage.py runserver
+   .\venv\Scripts\python.exe manage.py runserver
    ```
 6. Acesse:
    - `http://127.0.0.1:8000/` para lista de produtos
@@ -40,6 +41,8 @@ EasyMart é um sistema Django para gerenciar produtos e fornecedores. O foco atu
 ## Credenciais de Admin Padrão
 - **Usuário**: admin
 - **Senha**: admin
+
+> O superusuário `admin` é criado automaticamente pela migração do projeto.
 
 ## Estrutura do Projeto
 - `easymart/`: Configurações do projeto Django
