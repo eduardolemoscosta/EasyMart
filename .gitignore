@@ -35,3 +35,8 @@ venv.bak/
 # OS
 .DS_Store
 Thumbs.db
+
+# Additional common files
+.python-version
+pip-log.txt
+coverage.xml
