@@ -17,7 +17,13 @@
     <div class="info">
         <p><strong>Email:</strong> {{ fornecedor.email }}</p>
         <p><strong>Telefone:</strong> {{ fornecedor.telefone }}</p>
-        <p><strong>Endereço:</strong> {{ fornecedor.endereco }}</p>
+        <p><strong>Endereço:</strong></p>
+        <ul>
+            <li><strong>Rua:</strong> {{ fornecedor.rua }}</li>
+            <li><strong>Número:</strong> {{ fornecedor.numero }}</li>
+            <li><strong>Bairro:</strong> {{ fornecedor.bairro }}</li>
+            <li><strong>Cidade:</strong> {{ fornecedor.cidade }}</li>
+        </ul>
         <p><strong>Data de Cadastro:</strong> {{ fornecedor.data_cadastro|date:"d/m/Y H:i" }}</p>
     </div>
     

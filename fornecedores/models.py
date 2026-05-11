@@ -11,8 +11,11 @@ class Fornecedor(models.Model):
     # Telefone de contato
     telefone = models.CharField(max_length=15, blank=True, null=True)
     
-    # Endereço
-    endereco = models.CharField(max_length=250, blank=True, null=True)
+    # Endereço detalhado
+    rua = models.CharField(max_length=200, blank=True, null=True, verbose_name="Rua")
+    numero = models.CharField(max_length=10, blank=True, null=True, verbose_name="Número")
+    bairro = models.CharField(max_length=100, blank=True, null=True, verbose_name="Bairro")
+    cidade = models.CharField(max_length=100, blank=True, null=True, verbose_name="Cidade")
     
     # Data de cadastro
     data_cadastro = models.DateTimeField(auto_now_add=True)
