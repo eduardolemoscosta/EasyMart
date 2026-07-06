@@ -1,4 +1,4 @@
-document.addEventListener('DOMContentLoaded', function() {
+function init() {
     const confirmLinks = document.querySelectorAll('.confirm-pedido');
     confirmLinks.forEach(function(link) {
         link.addEventListener('click', function(event) {
@@ -18,4 +18,21 @@ document.addEventListener('DOMContentLoaded', function() {
         updateCounter();
         messageField.addEventListener('input', updateCounter);
     }
-});
+
+    // Lógica do modo escuro
+    const themeToggleBtn = document.getElementById('theme-toggle');
+
+    if (themeToggleBtn) {
+        themeToggleBtn.addEventListener('click', function() {
+            const isDark = document.documentElement.classList.toggle('dark-mode');
+            document.body.classList.toggle('dark-mode', isDark);
+            localStorage.setItem('theme', isDark ? 'dark' : 'light');
+        });
+    }
+}
+
+if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', init);
+} else {
+    init();
+}
