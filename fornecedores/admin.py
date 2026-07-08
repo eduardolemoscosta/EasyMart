@@ -4,9 +4,9 @@ from .models import Fornecedor
 # Registrar modelo Fornecedor no admin
 @admin.register(Fornecedor)
 class FornecedorAdmin(admin.ModelAdmin):
-    list_display = ('nome', 'email', 'telefone', 'data_cadastro')
-    search_fields = ('nome', 'email')
-    list_filter = ('data_cadastro',)
+    list_display = ('nome', 'email', 'telefone', 'cidade', 'estado', 'data_cadastro')
+    search_fields = ('nome', 'email', 'cidade', 'estado')
+    list_filter = ('data_cadastro', 'estado', 'cidade')
     readonly_fields = ('data_cadastro',)
     
     fieldsets = (
@@ -14,7 +14,7 @@ class FornecedorAdmin(admin.ModelAdmin):
             'fields': ('nome', 'email', 'telefone')
         }),
         ('Endereço', {
-            'fields': ('rua', 'numero', 'bairro', 'cidade'),
+            'fields': ('rua', 'numero', 'bairro', 'cidade', 'estado'),
             'classes': ('collapse',),  # Makes it collapsible like a tab
         }),
         ('Datas', {

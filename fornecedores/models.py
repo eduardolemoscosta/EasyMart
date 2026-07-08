@@ -16,6 +16,7 @@ class Fornecedor(models.Model):
     numero = models.CharField(max_length=10, blank=True, null=True, verbose_name="Número")
     bairro = models.CharField(max_length=100, blank=True, null=True, verbose_name="Bairro")
     cidade = models.CharField(max_length=100, blank=True, null=True, verbose_name="Cidade")
+    estado = models.CharField(max_length=50, blank=True, null=True, verbose_name="Estado")
     
     # Data de cadastro
     data_cadastro = models.DateTimeField(auto_now_add=True)
