@@ -30,6 +30,10 @@
     <form method="post">
         {% csrf_token %}
         <div>
+            <label for="quantidade">Quantidade a Pedir:</label><br>
+            <input type="number" id="quantidade" name="quantidade" value="{{ quantidade|default:'1' }}" min="1" style="width: 100%; padding: 8px; margin-bottom: 10px;">
+        </div>
+        <div>
             <label for="subject">Assunto:</label><br>
             <input type="text" id="subject" name="subject" value="{{ subject|default:'Pedido de Reposição: ' }}{{ produto.nome }}" style="width: 100%; padding: 8px; margin-bottom: 10px;">
         </div>

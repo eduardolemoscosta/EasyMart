@@ -386,3 +386,35 @@ h3 {
     margin-left: 20px;
     margin-top: 5px;
 }
+/* Row highlighting for low stock */
+tr.row-low-stock {
+    background-color: rgba(251, 191, 36, 0.15) !important;
+    border-left: 4px solid #fbbf24;
+}
+
+.dark-mode tr.row-low-stock {
+    background-color: rgba(251, 191, 36, 0.15) !important;
+}
+
+tr.row-low-stock:hover {
+    background-color: rgba(251, 191, 36, 0.25) !important;
+}
+
+/* Row highlighting for out of stock */
+tr.row-out-of-stock {
+    background-color: rgba(239, 68, 68, 0.15) !important;
+    border-left: 4px solid #ef4444;
+}
+
+.dark-mode tr.row-out-of-stock {
+    background-color: rgba(239, 68, 68, 0.15) !important;
+}
+
+tr.row-out-of-stock:hover {
+    background-color: rgba(239, 68, 68, 0.25) !important;
+}
+
+tr.row-low-stock td,
+tr.row-out-of-stock td {
+    font-weight: 500;
+}

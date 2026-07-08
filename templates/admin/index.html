@@ -1,0 +1,72 @@
+{% extends "admin/base_site.html" %}
+{% load i18n static %}
+
+{% block title %}
+    {% trans 'Site administration' %} | {{ block.super }}
+{% endblock %}
+
+{% block content %}
+    <div id="content-main">
+        <div style="margin-bottom: 30px;">
+            <h1>{% trans 'Bem-vindo ao Painel Administrativo EasyMart' %}</h1>
+            <p style="color: var(--text-muted); font-size: 16px;">
+                {% trans 'Gerencie produtos, fornecedores e usuários da aplicação.' %}
+            </p>
+        </div>
+
+        {% if app_list %}
+            {% for app in app_list %}
+                <div class="module">
+                    <h2>{{ app.name }}</h2>
+                    <table>
+                        <tbody>
+                            {% for model in app.models %}
+                                <tr>
+                                    <td style="width: 70%; padding: 12px 16px;">
+                                        <a href="{{ model.admin_url }}">{{ model.name }}</a>
+                                    </td>
+                                    <td style="padding: 12px 16px; text-align: right; width: 30%;">
+                                        {% if model.add_url %}
+                                            <a href="{{ model.add_url }}" class="viewsitelink">
+                                                {% trans 'Adicionar' %}
+                                            </a>
+                                        {% endif %}
+                                        {% if model.admin_url %}
+                                            <a href="{{ model.admin_url }}" class="viewsitelink">
+                                                {% trans 'Mudar' %}
+                                            </a>
+                                        {% endif %}
+                                    </td>
+                                </tr>
+                            {% endfor %}
+                        </tbody>
+                    </table>
+                </div>
+            {% endfor %}
+        {% else %}
+            <p style="color: var(--text-muted);">
+                {% trans 'Você não tem permissão para editar nada.' %}
+            </p>
+        {% endif %}
+
+        {% block userlinks %}
+            {% if user.has_usable_password %}
+                <div class="module" style="margin-top: 30px;">
+                    <h2>{% trans 'Suas ações' %}</h2>
+                    <ul style="margin: 0; padding: 12px 16px;">
+                        <li style="list-style: none; padding: 8px 0;">
+                            <a href="{% url 'admin:password_change' %}">
+                                {% trans 'Alterar sua senha' %}
+                            </a>
+                        </li>
+                        <li style="list-style: none; padding: 8px 0;">
+                            <a href="{% url 'admin:logout' %}">
+                                {% trans 'Sair' %}
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+            {% endif %}
+        {% endblock %}
+    </div>
+{% endblock %}

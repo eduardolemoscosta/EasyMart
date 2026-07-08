@@ -31,3 +31,32 @@ class Produto(models.Model):
 
     def __str__(self):
         return self.nome
+
+
+class HistoricoPedido(models.Model):
+    STATUS_CHOICES = [
+        ('enviado', 'Enviado'),
+        ('confirmado', 'Confirmado'),
+        ('entregue', 'Entregue'),
+        ('cancelado', 'Cancelado'),
+    ]
+    
+    # Relacionamentos
+    produto = models.ForeignKey(Produto, on_delete=models.PROTECT, related_name='historico_pedidos')
+    fornecedor = models.ForeignKey(Fornecedor, on_delete=models.PROTECT, related_name='historico_pedidos')
+    
+    # Dados do pedido
+    quantidade = models.IntegerField(validators=[MinValueValidator(1)])
+    data_pedido = models.DateTimeField(auto_now_add=True)
+    status = models.CharField(max_length=20, choices=STATUS_CHOICES, default='enviado')
+    
+    # Observações opcionais
+    observacoes = models.TextField(blank=True, null=True)
+    
+    class Meta:
+        verbose_name = 'Histórico de Pedido'
+        verbose_name_plural = 'Históricos de Pedidos'
+        ordering = ['-data_pedido']
+    
+    def __str__(self):
+        return f"Pedido {self.id} - {self.produto.nome} - {self.data_pedido.strftime('%d/%m/%Y %H:%M')}"

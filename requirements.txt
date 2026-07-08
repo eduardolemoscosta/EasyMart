@@ -1,3 +1,4 @@
+# Dependências do EasyMart
 asgiref==3.11.1
 charset-normalizer==3.4.9
 Django==6.0.7

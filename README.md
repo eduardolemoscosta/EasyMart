@@ -5,13 +5,17 @@ EasyMart é um sistema Django para gerenciar produtos e fornecedores. O foco atu
 
 ## Funcionalidades
 - **Listagem de Produtos**: Página inicial com nome, preço, quantidade em estoque e fornecedor vinculado.
-- **Fornecedores**: Gerenciamento de fornecedores via admin do Django.
-- **Pedido ao Fornecedor**: Botão que abre formulário para enviar e-mail ao fornecedor do produto.
-- **Admin Django**: Cadastro e edição de produtos e fornecedores pelo painel `/admin/`.
+- **Dashboard de Resumos**: Exibição de cards com total de produtos, produtos com estoque baixo e total de fornecedores.
+- **Venda com correção automática**: se a quantidade solicitada for maior do que o estoque, a venda é ajustada ao estoque disponível e o estoque é zerado.
+- **Relatório em PDF**: geração de relatório de estoque crítico em PDF com produtos de estoque baixo.
+- **Pedido ao Fornecedor**: botão que abre formulário para enviar e-mail ao fornecedor do produto.
+- **Histórico de pedidos**: pedidos enviados são registrados para controle.
+- **Admin Django**: cadastro e edição de produtos e fornecedores pelo painel `/admin/`.
 
 ## Tecnologias
-- **Framework**: Django
+- **Framework**: Django 6.0.7
 - **Banco de Dados**: SQLite
+- **Geração de PDF**: ReportLab
 - **Front-end**: HTML, CSS e JavaScript estáticos
 
 ## Instalação e Execução
@@ -66,12 +70,11 @@ Abra seu navegador e acesse:
 - **Painel Admin**: `http://127.0.0.1:8000/admin/`
 
 ## Credenciais de Admin
-O superusuário é criado automaticamente pela migração do projeto:
-
-- **Usuário**: admin
-- **Senha**: admin
-
-Acesse `http://127.0.0.1:8000/admin/` para gerenciar produtos e fornecedores.
+Crie um superusuário para acessar o painel administrativo:
+```powershell
+.\venv\Scripts\python.exe manage.py createsuperuser
+```
+Depois acesse `http://127.0.0.1:8000/admin/` para gerenciar produtos e fornecedores.
 
 ## Rodando Testes
 ```powershell

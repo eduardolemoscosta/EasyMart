@@ -43,6 +43,63 @@
     
     <h1>Bem-vindo ao EasyMart</h1>
     <h2>Lista de Produtos</h2>
+    
+    <!-- Dashboard Cards -->
+    <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 16px; margin-bottom: 24px;">
+        <!-- Card Total de Produtos -->
+        <div style="background-color: var(--card-bg); border: 1px solid var(--border-color); border-radius: 8px; padding: 20px; box-shadow: var(--shadow);">
+            <div style="display: flex; justify-content: space-between; align-items: flex-start;">
+                <div>
+                    <p style="color: var(--text-muted); margin: 0; font-size: 14px;">Total de Produtos</p>
+                    <h3 style="color: var(--text-color); margin: 10px 0 0 0; font-size: 32px;">{{ total_produtos }}</h3>
+                </div>
+                <div style="background-color: rgba(59, 130, 246, 0.1); border-radius: 8px; padding: 12px; width: 50px; height: 50px; display: flex; align-items: center; justify-content: center;">
+                    <svg style="width: 24px; height: 24px; color: var(--primary-color);" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <path d="M12 2v20m0-5c-3 0-7-1-7-4s4-4 7-4 7 1 7 4-4 4-7 4z"></path>
+                    </svg>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Card Estoque Baixo -->
+        <div style="background-color: var(--card-bg); border: 1px solid var(--border-color); border-radius: 8px; padding: 20px; box-shadow: var(--shadow);">
+            <div style="display: flex; justify-content: space-between; align-items: flex-start;">
+                <div>
+                    <p style="color: var(--text-muted); margin: 0; font-size: 14px;">Estoque Baixo</p>
+                    <h3 style="color: var(--text-color); margin: 10px 0 0 0; font-size: 32px;">{{ produtos_estoque_baixo }}</h3>
+                </div>
+                <div style="background-color: rgba(251, 191, 36, 0.1); border-radius: 8px; padding: 12px; width: 50px; height: 50px; display: flex; align-items: center; justify-content: center;">
+                    <svg style="width: 24px; height: 24px; color: #fbbf24;" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <path d="M12 2v20m-8-5h16"></path>
+                    </svg>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Card Fornecedores -->
+        <div style="background-color: var(--card-bg); border: 1px solid var(--border-color); border-radius: 8px; padding: 20px; box-shadow: var(--shadow);">
+            <div style="display: flex; justify-content: space-between; align-items: flex-start;">
+                <div>
+                    <p style="color: var(--text-muted); margin: 0; font-size: 14px;">Fornecedores Parceiros</p>
+                    <h3 style="color: var(--text-color); margin: 10px 0 0 0; font-size: 32px;">{{ total_fornecedores }}</h3>
+                </div>
+                <div style="background-color: rgba(16, 185, 129, 0.1); border-radius: 8px; padding: 12px; width: 50px; height: 50px; display: flex; align-items: center; justify-content: center;">
+                    <svg style="width: 24px; height: 24px; color: var(--success-color);" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"></path>
+                        <circle cx="9" cy="7" r="4"></circle>
+                        <path d="M23 21v-2a4 4 0 0 0-3-3.87"></path>
+                        <path d="M16 3.13a4 4 0 0 1 0 7.75"></path>
+                    </svg>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <!-- Botão Relatório Estoque Crítico -->
+    <div style="margin-bottom: 24px;">
+        <a href="{% url 'products:relatorio_estoque_baixo' %}" style="padding: 10px 20px; background-color: #ef4444; color: white; text-decoration: none; border-radius: 6px; font-weight: 500; display: inline-block; transition: background-color 0.2s;">📋 Gerar Relatório Estoque Crítico (PDF)</a>
+    </div>
+    
     <form method="get" style="margin-bottom: 16px;">
         <input type="text" name="q" placeholder="Buscar produto ou fornecedor" value="{{ request.GET.q|default:'' }}" style="padding: 6px; width: 240px;">
         <button type="submit" style="padding: 6px 12px;">Buscar</button>
@@ -87,10 +144,10 @@
         </thead>
         <tbody>
             {% for produto in produtos %}
-            <tr>
+            <tr class="{% if produto.quantidade == 0 %}row-out-of-stock{% elif produto.quantidade <= 5 %}row-low-stock{% endif %}">
                 <td>{{ produto.nome }}</td>
                 <td>R$ {{ produto.preco }}</td>
-                <td>{{ produto.quantidade }}</td>
+                <td><strong>{{ produto.quantidade }}</strong></td>
                 <td>
                     {% if produto.fornecedor %}
                         <a href="{% url 'detalhes_fornecedor' produto.fornecedor.id %}">{{ produto.fornecedor.nome }}</a>
