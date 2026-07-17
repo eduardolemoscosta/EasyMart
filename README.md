@@ -26,7 +26,7 @@ EasyMart é um sistema Django para gerenciar produtos e fornecedores. O foco atu
 
 ### Passo 1: Clonar ou Baixar o Repositório
 ```powershell
-git clone <seu-repositorio>
+git clone https://github.com/eduardolemoscosta/EasyMart
 cd EasyMart
 ```
 
