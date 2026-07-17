@@ -1,25 +1,8 @@
-<!DOCTYPE html>
-<html lang="pt-br">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>EasyMart - Fornecedores</title>
-    {% load static %}
-    <link rel="stylesheet" href="{% static 'css/style.css' %}">
-    <script>
-        (function() {
-            const theme = localStorage.getItem('theme');
-            if (theme === 'dark') {
-                document.documentElement.classList.add('dark-mode');
-            }
-        })();
-    </script>
-</head>
-<body>
-    <div class="nav">
-        <a href="/">Voltar para Produtos</a> | <a href="/admin/">Painel Admin</a>
-    </div>
-    
+{% extends 'base.html' %}
+
+{% block title %}EasyMart - Fornecedores{% endblock %}
+
+{% block content %}
     <h1>Fornecedores</h1>
     <table>
         <thead>
@@ -51,5 +34,4 @@
             {% endfor %}
         </tbody>
     </table>
-</body>
-</html>
+{% endblock %}

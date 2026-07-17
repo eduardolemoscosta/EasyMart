@@ -1,24 +1,8 @@
-<!DOCTYPE html>
-<html lang="pt-br">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Enviar e-mail ao Fornecedor</title>
-    {% load static %}
-    <link rel="stylesheet" href="{% static 'css/style.css' %}">
-    <script>
-        (function() {
-            const theme = localStorage.getItem('theme');
-            if (theme === 'dark') {
-                document.documentElement.classList.add('dark-mode');
-            }
-        })();
-    </script>
-</head>
-<body>
-    <div class="nav">
-        <a href="/">Voltar para Produtos</a> | <a href="/fornecedores/">Fornecedores</a> | <a href="/admin/">Painel Admin</a>
-    </div>
+{% extends 'base.html' %}
+
+{% block title %}Enviar e-mail ao Fornecedor{% endblock %}
+
+{% block content %}
     <h1>Enviar e-mail para {{ fornecedor.nome }}</h1>
     <p><strong>Produto:</strong> {{ produto.nome }}</p>
     <p><strong>Email do fornecedor:</strong> {{ fornecedor.email }}</p>
@@ -44,6 +28,4 @@
         </div>
         <button type="submit" style="margin-top: 10px; padding: 10px 20px;">Enviar E-mail</button>
     </form>
-    <script src="{% static 'js/main.js' %}"></script>
-</body>
-</html>
+{% endblock %}

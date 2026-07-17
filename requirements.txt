@@ -1,8 +1,18 @@
-# Dependências do EasyMart
-asgiref==3.11.1
-charset-normalizer==3.4.9
+# Django Framework
 Django==6.0.7
-pillow==12.3.0
-reportlab==5.0.0
+asgiref==3.11.1
 sqlparse==0.5.5
 tzdata==2026.2
+
+# Image and PDF Processing
+Pillow==12.3.0
+reportlab==5.0.0
+
+# Database Drivers
+charset-normalizer==3.4.9
+
+# Production Server
+gunicorn==23.0.0
+
+# Environment Configuration
+python-dotenv==1.0.1

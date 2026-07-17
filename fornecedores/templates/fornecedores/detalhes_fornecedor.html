@@ -1,27 +1,10 @@
-<!DOCTYPE html>
-<html lang="pt-br">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>EasyMart - {{ fornecedor.nome }}</title>
-    {% load static %}
-    <link rel="stylesheet" href="{% static 'css/style.css' %}">
-    <script>
-        (function() {
-            const theme = localStorage.getItem('theme');
-            if (theme === 'dark') {
-                document.documentElement.classList.add('dark-mode');
-            }
-        })();
-    </script>
-</head>
-<body>
-    <div class="nav">
-        <a href="/fornecedores/">Voltar para Fornecedores</a> | <a href="/">Voltar para Produtos</a> | <a href="/admin/">Painel Admin</a>
-    </div>
-    
+{% extends 'base.html' %}
+
+{% block title %}EasyMart - {{ fornecedor.nome }}{% endblock %}
+
+{% block content %}
     <h1>{{ fornecedor.nome }}</h1>
-    
+
     <div class="info">
         <p><strong>Email:</strong> {{ fornecedor.email }}</p>
         <p><strong>Telefone:</strong> {{ fornecedor.telefone }}</p>
@@ -35,7 +18,7 @@
         </ul>
         <p><strong>Data de Cadastro:</strong> {{ fornecedor.data_cadastro|date:"d/m/Y H:i" }}</p>
     </div>
-    
+
     <h2>Produtos deste Fornecedor</h2>
     <table>
         <thead>
@@ -67,5 +50,4 @@
             {% endfor %}
         </tbody>
     </table>
-</body>
-</html>
+{% endblock %}
