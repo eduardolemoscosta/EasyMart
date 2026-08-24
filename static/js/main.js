@@ -18,17 +18,6 @@ function init() {
         updateCounter();
         messageField.addEventListener('input', updateCounter);
     }
-
-    // Lógica do modo escuro
-    const themeToggleBtn = document.getElementById('theme-toggle');
-
-    if (themeToggleBtn) {
-        themeToggleBtn.addEventListener('click', function() {
-            const isDark = document.documentElement.classList.toggle('dark-mode');
-            document.body.classList.toggle('dark-mode', isDark);
-            localStorage.setItem('theme', isDark ? 'dark' : 'light');
-        });
-    }
 }
 
 if (document.readyState === 'loading') {

@@ -1,52 +1,52 @@
 {% extends 'base.html' %}
 
+{% block body_class %}home-page{% endblock %}
+
 {% block title %}EasyMart - Sistema de Gerenciamento{% endblock %}
 
 {% block content %}
-    <h1>Bem-vindo ao EasyMart</h1>
-    <h2>Lista de Produtos</h2>
+    <div class="page-header">
+        <h1>Bem-vindo ao EasyMart</h1>
+        <h2>Lista de Produtos</h2>
+    </div>
 
-    <!-- Dashboard Cards -->
-    <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 16px; margin-bottom: 24px;">
-        <!-- Card Total de Produtos -->
-        <div style="background-color: var(--card-bg); border: 1px solid var(--border-color); border-radius: 8px; padding: 20px; box-shadow: var(--shadow);">
-            <div style="display: flex; justify-content: space-between; align-items: flex-start;">
+    <div class="dashboard-grid">
+        <div class="dashboard-card">
+            <div class="card-header">
                 <div>
-                    <p style="color: var(--text-muted); margin: 0; font-size: 14px;">Total de Produtos</p>
-                    <h3 style="color: var(--text-color); margin: 10px 0 0 0; font-size: 32px;">{{ total_produtos }}</h3>
+                    <p>Total de Produtos</p>
+                    <h3>{{ total_produtos }}</h3>
                 </div>
-                <div style="background-color: rgba(59, 130, 246, 0.1); border-radius: 8px; padding: 12px; width: 50px; height: 50px; display: flex; align-items: center; justify-content: center;">
-                    <svg style="width: 24px; height: 24px; color: var(--primary-color);" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <div class="card-icon blue-icon">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
                         <path d="M12 2v20m0-5c-3 0-7-1-7-4s4-4 7-4 7 1 7 4-4 4-7 4z"></path>
                     </svg>
                 </div>
             </div>
         </div>
-        
-        <!-- Card Estoque Baixo -->
-        <div style="background-color: var(--card-bg); border: 1px solid var(--border-color); border-radius: 8px; padding: 20px; box-shadow: var(--shadow);">
-            <div style="display: flex; justify-content: space-between; align-items: flex-start;">
+
+        <div class="dashboard-card">
+            <div class="card-header">
                 <div>
-                    <p style="color: var(--text-muted); margin: 0; font-size: 14px;">Estoque Baixo</p>
-                    <h3 style="color: var(--text-color); margin: 10px 0 0 0; font-size: 32px;">{{ produtos_estoque_baixo }}</h3>
+                    <p>Estoque Baixo</p>
+                    <h3>{{ produtos_estoque_baixo }}</h3>
                 </div>
-                <div style="background-color: rgba(251, 191, 36, 0.1); border-radius: 8px; padding: 12px; width: 50px; height: 50px; display: flex; align-items: center; justify-content: center;">
-                    <svg style="width: 24px; height: 24px; color: #fbbf24;" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <div class="card-icon yellow-icon">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
                         <path d="M12 2v20m-8-5h16"></path>
                     </svg>
                 </div>
             </div>
         </div>
-        
-        <!-- Card Fornecedores -->
-        <div style="background-color: var(--card-bg); border: 1px solid var(--border-color); border-radius: 8px; padding: 20px; box-shadow: var(--shadow);">
-            <div style="display: flex; justify-content: space-between; align-items: flex-start;">
+
+        <div class="dashboard-card">
+            <div class="card-header">
                 <div>
-                    <p style="color: var(--text-muted); margin: 0; font-size: 14px;">Fornecedores Parceiros</p>
-                    <h3 style="color: var(--text-color); margin: 10px 0 0 0; font-size: 32px;">{{ total_fornecedores }}</h3>
+                    <p>Fornecedores Parceiros</p>
+                    <h3>{{ total_fornecedores }}</h3>
                 </div>
-                <div style="background-color: rgba(16, 185, 129, 0.1); border-radius: 8px; padding: 12px; width: 50px; height: 50px; display: flex; align-items: center; justify-content: center;">
-                    <svg style="width: 24px; height: 24px; color: var(--success-color);" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <div class="card-icon green-icon">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
                         <path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"></path>
                         <circle cx="9" cy="7" r="4"></circle>
                         <path d="M23 21v-2a4 4 0 0 0-3-3.87"></path>
@@ -56,31 +56,35 @@
             </div>
         </div>
     </div>
-    
-    <!-- Botão Relatório Estoque Crítico -->
-    <div style="margin-bottom: 24px;">
-        <a href="{% url 'products:relatorio_estoque_baixo' %}" style="padding: 10px 20px; background-color: #ef4444; color: white; text-decoration: none; border-radius: 6px; font-weight: 500; display: inline-block; transition: background-color 0.2s;">📋 Gerar Relatório Estoque Crítico (PDF)</a>
-    </div>
-    
-    <form method="get" style="margin-bottom: 16px;">
-        <input type="text" name="q" placeholder="Buscar produto ou fornecedor" value="{{ request.GET.q|default:'' }}" style="padding: 6px; width: 240px;">
-        <button type="submit" style="padding: 6px 12px;">Buscar</button>
-    </form>
-    
-    <div style="margin-bottom: 16px;">
-        <h3>Relatórios em PDF</h3>
-        <form action="{% url 'products:pdf_estoque_baixo' %}" method="get" style="display:inline; margin-right: 16px;">
-            <label for="threshold">Estoque abaixo de:</label>
-            <input type="number" id="threshold" name="threshold" value="5" min="0" style="width: 60px; padding: 4px;">
-            <button type="submit" style="padding: 6px 12px;">Gerar PDF Estoque Baixo</button>
-        </form>
-        <a href="{% url 'products:pdf_todos_produtos' %}" style="padding: 6px 12px; background-color: #007bff; color: white; text-decoration: none; border-radius: 4px;">Gerar PDF Todos Produtos</a>
+
+    <div class="toolbar-panel">
+        <div class="toolbar-row">
+            <form method="get" class="search-form">
+                <input type="text" name="q" placeholder="Buscar produto ou fornecedor" value="{{ request.GET.q|default:'' }}">
+                <button type="submit">Buscar</button>
+            </form>
+
+            <a href="{% url 'products:relatorio_estoque_baixo' %}" class="btn-danger">📋 Relatório Estoque Crítico</a>
+        </div>
+
+        <div class="report-actions">
+            <div class="report-item">
+                <h3>Relatórios em PDF</h3>
+                <form action="{% url 'products:pdf_estoque_baixo' %}" method="get">
+                    <label for="threshold">Estoque abaixo de:</label>
+                    <input type="number" id="threshold" name="threshold" value="5" min="0">
+                    <button type="submit">Gerar PDF</button>
+                </form>
+            </div>
+
+            <a href="{% url 'products:pdf_todos_produtos' %}" class="btn-primary">Gerar PDF Todos Produtos</a>
+        </div>
     </div>
 
     {% if messages %}
-    <div>
+    <div class="message-area">
         {% for message in messages %}
-            <p style="color: {% if message.tags == 'error' %}red{% else %}green{% endif %};">{{ message }}</p>
+            <p class="message {% if message.tags == 'error' %}error{% else %}success{% endif %}">{{ message }}</p>
         {% endfor %}
     </div>
     {% endif %}
@@ -96,54 +100,56 @@
     </div>
     {% endif %}
 
-    <table border="1">
-        <thead>
-            <tr>
-                <th>Nome</th>
-                <th>Preço</th>
-                <th>Quantidade em Estoque</th>
-                <th>Fornecedor</th>
-                <th>Ação</th>
-                <th>Venda</th>
-            </tr>
-        </thead>
-        <tbody>
-            {% for produto in produtos %}
-            <tr class="{% if produto.quantidade == 0 %}row-out-of-stock{% elif produto.quantidade <= 5 %}row-low-stock{% endif %}">
-                <td>{{ produto.nome }}</td>
-                <td>R$ {{ produto.preco }}</td>
-                <td><strong>{{ produto.quantidade }}</strong></td>
-                <td>
-                    {% if produto.fornecedor %}
-                        <a href="{% url 'detalhes_fornecedor' produto.fornecedor.id %}">{{ produto.fornecedor.nome }}</a>
-                    {% else %}
-                        Sem fornecedor
-                    {% endif %}
-                </td>
-                <td>
-                    {% if produto.fornecedor and produto.fornecedor.email %}
-                    <a class="confirm-pedido" data-produto-name="{{ produto.nome }}" href="{% url 'products:pedir_fornecedor' produto.id %}">Pedir ao Fornecedor</a>
-                    {% else %}
-                    Sem contato
-                    {% endif %}
-                </td>
-                <td>
-                    {% if produto.quantidade > 0 %}
-                    <form action="{% url 'products:finalizar_venda' produto.id %}" method="post" style="display:inline;">
-                        {% csrf_token %}
-                        <input type="number" name="quantidade" value="1" min="1" style="width: 50px;">
-                        <button type="submit" style="padding: 4px 8px;">Vender</button>
-                    </form>
-                    {% else %}
-                    Sem estoque
-                    {% endif %}
-                </td>
-            </tr>
-            {% empty %}
-            <tr>
-                <td colspan="6">Nenhum produto cadastrado.</td>
-            </tr>
-            {% endfor %}
-        </tbody>
-    </table>
+    <div class="table-wrapper">
+        <table class="data-table">
+            <thead>
+                <tr>
+                    <th>Nome</th>
+                    <th>Preço</th>
+                    <th>Quantidade em Estoque</th>
+                    <th>Fornecedor</th>
+                    <th>Ação</th>
+                    <th>Venda</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for produto in produtos %}
+                <tr class="{% if produto.quantidade == 0 %}row-out-of-stock{% elif produto.quantidade <= 5 %}row-low-stock{% endif %}">
+                    <td>{{ produto.nome }}</td>
+                    <td>R$ {{ produto.preco }}</td>
+                    <td><strong>{{ produto.quantidade }}</strong></td>
+                    <td>
+                        {% if produto.fornecedor %}
+                            <a href="{% url 'detalhes_fornecedor' produto.fornecedor.id %}">{{ produto.fornecedor.nome }}</a>
+                        {% else %}
+                            Sem fornecedor
+                        {% endif %}
+                    </td>
+                    <td>
+                        {% if produto.fornecedor and produto.fornecedor.email %}
+                        <a class="confirm-pedido" data-produto-name="{{ produto.nome }}" href="{% url 'products:pedir_fornecedor' produto.id %}">Pedir ao Fornecedor</a>
+                        {% else %}
+                        Sem contato
+                        {% endif %}
+                    </td>
+                    <td>
+                        {% if produto.quantidade > 0 %}
+                        <form action="{% url 'products:finalizar_venda' produto.id %}" method="post" class="sale-form">
+                            {% csrf_token %}
+                            <input type="number" name="quantidade" value="1" min="1">
+                            <button type="submit">Vender</button>
+                        </form>
+                        {% else %}
+                        Sem estoque
+                        {% endif %}
+                    </td>
+                </tr>
+                {% empty %}
+                <tr>
+                    <td colspan="6">Nenhum produto cadastrado.</td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
 {% endblock %}
